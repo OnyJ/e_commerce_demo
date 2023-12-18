@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addShopItem } from "@/redux/actions/shopItemActions";
 
 const AddArticle = () => {
+  const dispatch = useDispatch();
   const [article, setArticle] = useState({
     name: "",
     description: "",
@@ -10,8 +13,18 @@ const AddArticle = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     console.log("le formulaire a été soumis");
     console.log(article);
+
+    // Ajout au state global
+    dispatch(addShopItem(article));
+
+    // Effacer le state du composant AddArticle
+    setArticle({
+      name: "",
+      description: "",
+    });
   };
 
   const handleChange = (e) => {
